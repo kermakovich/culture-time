@@ -11,4 +11,6 @@ public interface DancerService {
 
     Dancer findById(String dancerId);
 
+    void delete(String dancerId);
+
 }

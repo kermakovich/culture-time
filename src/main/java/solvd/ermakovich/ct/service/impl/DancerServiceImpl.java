@@ -24,9 +24,16 @@ public class DancerServiceImpl implements DancerService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Dancer findById(String dancerId) {
         return dancerRepository.findById(dancerId)
                 .orElseThrow(() -> new EntityDoesNotExistException("dancer does not exist"));
+    }
+
+    @Override
+    @Transactional
+    public void delete(String dancerId) {
+        dancerRepository.deleteById(dancerId);
     }
 
 }

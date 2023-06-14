@@ -1,12 +1,14 @@
 package solvd.ermakovich.ct.web.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import solvd.ermakovich.ct.domain.node.Performance;
 import solvd.ermakovich.ct.service.PerformanceService;
@@ -26,6 +28,7 @@ public class PerformanceController {
     private final PerformanceService dancerService;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     PerformanceDto create(@RequestBody PerformanceDto performanceDto) {
         Performance performance = mapper.toEntity(performanceDto);
         performance = dancerService.create(performance);
@@ -44,4 +47,5 @@ public class PerformanceController {
         var performance = dancerService.findById(performanceId);
         return mapper.toDto(performance);
     }
+
 }
