@@ -26,6 +26,11 @@ public class PerformanceServiceImpl implements PerformanceService {
     }
 
     @Override
+    public void delete(String id) {
+        performanceRepository.deleteById(id);
+    }
+
+    @Override
     @Transactional
     public Performance create(Performance performance) {
         return performanceRepository.save(performance);

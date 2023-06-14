@@ -2,6 +2,7 @@ package solvd.ermakovich.ct.web.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,17 +36,23 @@ public class PerformanceController {
         return mapper.toDto(performance);
     }
 
-    @PutMapping("/{performanceId}")
-    PerformanceDto addDancer(@RequestBody DancerInPerformance dancerInPerformance,
-                             @PathVariable String performanceId) {
-        var performance = dancerService.addDancer(dancerInPerformance, performanceId);
-        return mapper.toDto(performance);
-    }
-
     @GetMapping("/{performanceId}")
     PerformanceDto getById(@PathVariable String performanceId) {
         var performance = dancerService.findById(performanceId);
         return mapper.toDto(performance);
+    }
+
+    @PutMapping("/{performanceId}")
+    PerformanceDto addDancer(@RequestBody DancerInPerformance dancerInPerformance,
+                             @PathVariable String performanceId) {
+        var performance = dancerService
+                .addDancer(dancerInPerformance, performanceId);
+        return mapper.toDto(performance);
+    }
+
+    @DeleteMapping("/{performanceId}")
+    void delete(@PathVariable String performanceId) {
+        dancerService.delete(performanceId);
     }
 
 }

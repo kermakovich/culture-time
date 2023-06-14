@@ -8,10 +8,12 @@ import solvd.ermakovich.ct.web.dto.DancerInPerformance;
  */
 public interface PerformanceService {
 
-    Performance findById(String id);
-
     Performance create(Performance performance);
 
+    Performance findById(String id);
+
     Performance addDancer(DancerInPerformance info, String performanceId);
+
+    void delete(String id);
 
 }
