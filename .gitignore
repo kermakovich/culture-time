@@ -35,3 +35,4 @@ build/
 /neo4j/
 /mvnw.cmd
 /mvnw
+/.mvn/
