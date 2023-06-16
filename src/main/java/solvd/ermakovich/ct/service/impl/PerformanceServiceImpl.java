@@ -1,13 +1,11 @@
 package solvd.ermakovich.ct.service.impl;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import solvd.ermakovich.ct.domain.exception.EntityDoesNotExistException;
 import solvd.ermakovich.ct.domain.node.Performance;
 import solvd.ermakovich.ct.repository.PerformanceRepository;
-import solvd.ermakovich.ct.repository.projection.PerformanceProjection;
 import solvd.ermakovich.ct.service.PerformanceService;
 import solvd.ermakovich.ct.web.dto.DancerInPerformance;
 
