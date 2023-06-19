@@ -31,6 +31,12 @@ public class DancerServiceImpl implements DancerService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public Long getPerformancesCount(String dancerId) {
+        return dancerRepository.getPerformancesCount(dancerId);
+    }
+
+    @Override
     @Transactional
     public void delete(String dancerId) {
         dancerRepository.deleteById(dancerId);

@@ -11,6 +11,8 @@ public interface DancerService {
 
     Dancer findById(String dancerId);
 
+    Long getPerformancesCount(String dancerId);
+
     void delete(String dancerId);
 
 }
