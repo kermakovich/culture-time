@@ -9,8 +9,8 @@ import solvd.ermakovich.ct.domain.node.Dancer;
  */
 public interface DancerRepository extends Neo4jRepository<Dancer, String> {
 
-    @Query("MATCH (d:Dancer) WHERE d.id= :#{#dancerId} " +
-            "MATCH (d) -[:ACTS_IN] -> (p:Performance) RETURN count(p)")
+    @Query("MATCH (d:Dancer) WHERE d.id= :#{#dancerId} "
+            + "MATCH (d) -[:ACTS_IN] -> (p:Performance) RETURN count(p)")
     Long getPerformancesCount(String dancerId);
 
 }

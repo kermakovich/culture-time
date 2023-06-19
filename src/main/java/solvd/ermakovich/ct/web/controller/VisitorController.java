@@ -32,21 +32,25 @@ public class VisitorController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public VisitorDto create(@RequestBody VisitorDto visitorDto) {
+    public VisitorDto create(@RequestBody final VisitorDto visitorDto) {
         Visitor visitor = mapper.toEntity(visitorDto);
         visitor = visitorService.create(visitor);
         return mapper.toDto(visitor);
     }
 
     @PutMapping("/{id}")
-    public VisitorDto makeFriend(@RequestBody String friendId,
-                          @PathVariable String id) {
+    public VisitorDto makeFriend(
+            @RequestBody final String friendId,
+            @PathVariable final String id
+    ) {
         Visitor visitor = visitorService.makeFriend(id, friendId);
         return mapper.toDto(visitor);
     }
 
     @GetMapping("/{id}/recommendations")
-    public List<PerformanceProjection> getRecommendations(@PathVariable String id) {
+    public List<PerformanceProjection> getRecommendations(
+            @PathVariable final String id
+    ) {
         return performanceService
                 .getRecommendationsBasedOnFriendsLikes(id);
     }

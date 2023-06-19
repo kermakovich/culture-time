@@ -28,25 +28,25 @@ public class DancerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public DancerDto create(@RequestBody DancerDto dancerDto) {
+    public DancerDto create(@RequestBody final DancerDto dancerDto) {
         Dancer dancer = mapper.toEntity(dancerDto);
         dancer = dancerService.create(dancer);
         return mapper.toDto(dancer);
     }
 
     @GetMapping("/{dancerId}")
-    public DancerDto getById(@PathVariable String dancerId) {
+    public DancerDto getById(@PathVariable final String dancerId) {
         Dancer dancer = dancerService.findById(dancerId);
         return mapper.toDto(dancer);
     }
 
     @GetMapping("/{dancerId}/performances/count")
-    public Long getPerformancesCount(@PathVariable String dancerId) {
+    public Long getPerformancesCount(@PathVariable final String dancerId) {
         return dancerService.getPerformancesCount(dancerId);
     }
 
     @DeleteMapping("/{dancerId}")
-    public void deleteById(@PathVariable String dancerId) {
+    public void deleteById(@PathVariable final String dancerId) {
         dancerService.delete(dancerId);
     }
 

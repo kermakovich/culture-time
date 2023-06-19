@@ -17,18 +17,20 @@ public class DancerInPerformanceConverter
         implements GenericConverter {
 
     @Override
-    public Set<ConvertiblePair> getConvertibleTypes () {
+    public Set<ConvertiblePair> getConvertibleTypes() {
         return Set.of(
                 new ConvertiblePair(DancerInPerformance.class, Value.class)
         );
     }
 
     @Override
-    public Object convert(final Object source, final TypeDescriptor sourceType, final TypeDescriptor targetType) {
+    public Object convert(final Object source,
+                          final TypeDescriptor sourceType,
+                          final TypeDescriptor targetType) {
         if (sourceType.getType().equals(DancerInPerformance.class)) {
-            return new Converter().toGraphProperty((DancerInPerformance) source);
-        }
-        else {
+            return new Converter()
+                    .toGraphProperty((DancerInPerformance) source);
+        } else {
             throw new IllegalOperationException("unknown type for converting");
         }
     }

@@ -18,13 +18,13 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Override
     @Transactional
-    public Visitor create(Visitor visitor) {
+    public Visitor create(final Visitor visitor) {
         return visitorRepository.save(visitor);
     }
 
     @Override
     @Transactional
-    public Visitor makeFriend(String from, String to) {
+    public Visitor makeFriend(final String from, final String to) {
         return visitorRepository.makeFriend(from, to);
     }
 
