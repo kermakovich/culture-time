@@ -30,20 +30,20 @@ public class PerformanceController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    PerformanceDto create(@RequestBody PerformanceDto performanceDto) {
+    public PerformanceDto create(@RequestBody PerformanceDto performanceDto) {
         Performance performance = mapper.toEntity(performanceDto);
         performance = dancerService.create(performance);
         return mapper.toDto(performance);
     }
 
     @GetMapping("/{performanceId}")
-    PerformanceDto getById(@PathVariable String performanceId) {
+    public PerformanceDto getById(@PathVariable String performanceId) {
         var performance = dancerService.findById(performanceId);
         return mapper.toDto(performance);
     }
 
     @PutMapping("/{performanceId}")
-    PerformanceDto addDancer(@RequestBody DancerInPerformance dancerInPerformance,
+    public PerformanceDto addDancer(@RequestBody DancerInPerformance dancerInPerformance,
                              @PathVariable String performanceId) {
         var performance = dancerService
                 .addDancer(dancerInPerformance, performanceId);
@@ -51,7 +51,7 @@ public class PerformanceController {
     }
 
     @DeleteMapping("/{performanceId}")
-    void delete(@PathVariable String performanceId) {
+    public void delete(@PathVariable String performanceId) {
         dancerService.delete(performanceId);
     }
 
