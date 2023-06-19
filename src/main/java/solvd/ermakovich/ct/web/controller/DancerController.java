@@ -40,6 +40,11 @@ public class DancerController {
         return mapper.toDto(dancer);
     }
 
+    @GetMapping("/{dancerId}/performances/count")
+    Long getPerformancesCount(@PathVariable String dancerId) {
+        return dancerService.getPerformancesCount(dancerId);
+    }
+
     @DeleteMapping("/{dancerId}")
     void deleteById(@PathVariable String dancerId) {
         dancerService.delete(dancerId);
