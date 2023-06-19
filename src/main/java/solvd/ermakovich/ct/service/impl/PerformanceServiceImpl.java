@@ -22,33 +22,39 @@ public class PerformanceServiceImpl implements PerformanceService {
 
     @Override
     @Transactional(readOnly = true)
-    public Performance findById(String id) {
+    public Performance findById(final String id) {
         return performanceRepository.findById(id)
-                .orElseThrow(() -> new EntityDoesNotExistException("Performance does not exist"));
+                .orElseThrow(() ->
+                        new EntityDoesNotExistException(
+                                "Performance does not exist"
+                        )
+                );
     }
 
     @Override
     @Transactional
-    public void delete(String id) {
+    public void delete(final String id) {
         performanceRepository.deleteById(id);
     }
 
     @Override
     @Transactional
-    public Performance create(Performance performance) {
+    public Performance create(final Performance performance) {
         return performanceRepository.save(performance);
     }
 
     @Override
     @Transactional
-    public Performance addDancer(DancerInPerformance info, String performanceId) {
+    public Performance addDancer(final DancerInPerformance info,
+                                 final String performanceId) {
         var performance = findById(performanceId);
         return performanceRepository.addDancer(info, performance);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<PerformanceProjection> getRecommendationsBasedOnFriendsLikes(String visitorId) {
+    public List<PerformanceProjection>
+        getRecommendationsBasedOnFriendsLikes(final String visitorId) {
         return performanceRepository
                 .getRecommendationsBasedOnFriendsLikes(visitorId);
     }

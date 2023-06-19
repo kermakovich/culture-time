@@ -14,7 +14,8 @@ public interface PerformanceService {
 
     Performance findById(String id);
 
-    List<PerformanceProjection> getRecommendationsBasedOnFriendsLikes(String visitorId);
+    List<PerformanceProjection>
+        getRecommendationsBasedOnFriendsLikes(String visitorId);
 
     Performance addDancer(DancerInPerformance info, String performanceId);
 

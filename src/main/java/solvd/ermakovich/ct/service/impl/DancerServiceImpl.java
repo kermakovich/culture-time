@@ -19,26 +19,30 @@ public class DancerServiceImpl implements DancerService {
 
     @Override
     @Transactional
-    public Dancer create(Dancer dancer) {
+    public Dancer create(final Dancer dancer) {
         return dancerRepository.save(dancer);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Dancer findById(String dancerId) {
+    public Dancer findById(final String dancerId) {
         return dancerRepository.findById(dancerId)
-                .orElseThrow(() -> new EntityDoesNotExistException("dancer does not exist"));
+                .orElseThrow(() ->
+                        new EntityDoesNotExistException(
+                                "dancer does not exist"
+                        )
+                );
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Long getPerformancesCount(String dancerId) {
+    public Long getPerformancesCount(final String dancerId) {
         return dancerRepository.getPerformancesCount(dancerId);
     }
 
     @Override
     @Transactional
-    public void delete(String dancerId) {
+    public void delete(final String dancerId) {
         dancerRepository.deleteById(dancerId);
     }
 

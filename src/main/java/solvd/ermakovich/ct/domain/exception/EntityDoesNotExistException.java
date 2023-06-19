@@ -5,7 +5,7 @@ package solvd.ermakovich.ct.domain.exception;
  */
 public class EntityDoesNotExistException extends RuntimeException {
 
-    public EntityDoesNotExistException(String message) {
+    public EntityDoesNotExistException(final String message) {
         super(message);
     }
 
