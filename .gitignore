@@ -32,7 +32,7 @@ build/
 ### VS Code ###
 .vscode/
 /.env
-/neo4j/
+/neo4j/data/
 /mvnw.cmd
 /mvnw
 /.mvn/
