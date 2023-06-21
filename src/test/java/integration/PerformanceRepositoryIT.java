@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import solvd.ermakovich.ct.domain.node.Performance;
@@ -21,6 +22,7 @@ import solvd.ermakovich.ct.web.dto.DancerInPerformance;
 @SpringBootTest
 @ContextConfiguration(classes = TestConfig.class)
 @ActiveProfiles("test")
+@DirtiesContext
 final class PerformanceRepositoryIT extends Neo4jBaseIT {
 
     @Autowired

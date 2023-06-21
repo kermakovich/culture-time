@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.Neo4jContainer;
+import org.testcontainers.utility.MountableFile;
 
 /**
  * @author Ermakovich Kseniya
@@ -13,17 +15,37 @@ import org.springframework.test.context.DynamicPropertySource;
 @SuppressWarnings("JTCOP.RuleAllTestsHaveProductionClass")
 public class Neo4jBaseIT {
 
-    private final static BaseNeo4jContainer neo4jContainer = new BaseNeo4jContainer();
+    private final static Neo4jContainer neo4jContainer =
+            (Neo4jContainer) new Neo4jContainer("neo4j:5.8.0")
+                    .withCopyFileToContainer(
+                            MountableFile.forClasspathResource(
+                                    "/neo4j/neo4j-init.cypher"
+                            ),
+                            "/var/lib/neo4j/db_init/"
+                    )
+                    .withCopyFileToContainer(
+                            MountableFile.forClasspathResource(
+                                    "/neo4j/apoc.conf"
+                            ),
+                            "/var/lib/neo4j/conf/"
+                    )
+                    .withCopyFileToContainer(
+                            MountableFile.forClasspathResource(
+                                    "/neo4j/apoc-5.8.0-extended.jar"
+                            ),
+                            "/var/lib/neo4j/plugins/"
+                    )
+                    .withEnv("NEO4J_PLUGINS", "[\"apoc\"]")
+                    .withEnv("NEO4J_AUTH", "neo4j/password");
 
     @BeforeAll
     static void setUp() {
-        neo4jContainer.init();
         neo4jContainer.start();
     }
 
     @DynamicPropertySource
     static void neo4jProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.neo4j.uri", () -> "bolt://localhost:7687");
+        registry.add("spring.neo4j.uri", neo4jContainer::getBoltUrl);
         registry.add("spring.neo4j.authentication.username", () -> "neo4j");
         registry.add("spring.neo4j.authentication.password", () -> "password");
     }
