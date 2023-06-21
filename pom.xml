@@ -20,7 +20,7 @@
 		<mapstruct.version>1.5.3.Final</mapstruct.version>
 		<jakson.databind.version>2.12.0</jakson.databind.version>
 		<maven-checkstyle-plugin.version>3.2.2</maven-checkstyle-plugin.version>
-		<testcontainers.version>1.18.3</testcontainers.version>
+		<testcontainers.neo4j.version>1.18.3</testcontainers.neo4j.version>
 		<jtcop.version>0.1.13</jtcop.version>
 		<failsafe.version>3.1.0</failsafe.version>
 	</properties>
@@ -81,7 +81,7 @@
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>neo4j</artifactId>
-			<version>1.18.3</version>
+			<version>${testcontainers.neo4j.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
