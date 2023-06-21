@@ -12,7 +12,7 @@ public interface VisitorRepository extends Neo4jRepository<Visitor, String> {
     @Query("MATCH(from:Visitor) WHERE  from.id= :#{#from} "
             + "match(to:Visitor) WHERE to.id= :#{#to} "
             + "create (from)-[rel:FRIEND]"
-            + "->(to) return from")
+            + "->(to) return from, collect(rel), collect(to)")
     Visitor makeFriend(String from, String to);
 
 }
