@@ -14,13 +14,13 @@ public interface PerformanceRepository
         extends Neo4jRepository<Performance, String> {
 
     @Query("MATCH(dancer:Dancer) WHERE  dancer.id= :#{#info.dancerId} "
-            + "match(perf:Performance) WHERE perf.id= :#{#performance.id} "
+            + "match(perf:Performance) WHERE perf.id= :#{#performanceId} "
             + "merge (dancer)-[rela:ACTS_IN {firstPerformanceDate:"
             + " :#{#info.firstPerformanceDate}}]"
-            + "->(perf) return perf")
+            + "->(perf) return perf, collect(rela), collect(dancer)")
     Performance addDancer(
             DancerInPerformance info,
-            Performance performance
+            String performanceId
     );
 
     @Query("MATCH (visitor:Visitor) where visitor.id= :#{#id} "

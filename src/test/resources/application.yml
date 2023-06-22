@@ -1,0 +1,10 @@
+spring:
+  neo4j:
+    uri: ${NEO4J_URL}
+    authentication:
+      username: ${NEO4J_USERNAME}
+      password: ${NEO4J_PASSWORD}
+org:
+  neo4j:
+    migrations:
+      enabled: false

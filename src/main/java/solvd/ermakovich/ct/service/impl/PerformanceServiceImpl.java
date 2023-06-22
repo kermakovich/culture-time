@@ -47,8 +47,7 @@ public class PerformanceServiceImpl implements PerformanceService {
     @Transactional
     public Performance addDancer(final DancerInPerformance info,
                                  final String performanceId) {
-        var performance = findById(performanceId);
-        return performanceRepository.addDancer(info, performance);
+        return performanceRepository.addDancer(info, performanceId);
     }
 
     @Override
