@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.BeforeAll;
 import solvd.ermakovich.ct.domain.node.Dancer;
 import solvd.ermakovich.ct.domain.node.Performance;
+import solvd.ermakovich.ct.domain.node.Visitor;
 import solvd.ermakovich.ct.domain.relation.ActsIn;
 import solvd.ermakovich.ct.repository.projection.PerformanceProjection;
 
@@ -21,6 +22,8 @@ public abstract class BaseTest {
     protected static Performance performanceWithDancer;
     protected static List<PerformanceProjection> performanceProjections;
     protected static ActsIn actsInRelation;
+    protected static Visitor visitor;
+    protected static Visitor visitorWithFriend;
 
     @BeforeAll
     static void dancerSetUp() {
@@ -37,10 +40,9 @@ public abstract class BaseTest {
         performance = new Performance();
         performance.setTitle("Cinderella");
         performance.setId("d001a193-e232-4c1b-0086-1b86d3d6ae9e");
-        performance.setDescription("""
-                Cinderella is a 1960 Soviet musical film directed
-                by Rostislav Zakharov and Aleksandr Rou.
-                """);
+        performance.setDescription("Cinderella is a 1960 Soviet" +
+                " musical film directed by Rostislav Zakharov and " +
+                "Aleksandr Rou.");
     }
 
     @BeforeAll
@@ -78,11 +80,27 @@ public abstract class BaseTest {
         performanceWithDancer = new Performance();
         performanceWithDancer.setTitle("Cinderella");
         performanceWithDancer.setId("d001a193-e232-4c1b-0086-1b86d3d6ae9e");
-        performanceWithDancer.setDescription("""
-                Cinderella is a 1960 Soviet musical film directed
-                by Rostislav Zakharov and Aleksandr Rou.
-                """);
+        performanceWithDancer.setDescription("Cinderella is a 1960 Soviet " +
+                "musical film directed by Rostislav Zakharov " +
+                "and Aleksandr Rou.");
         performanceWithDancer.setDancers(List.of(actsInRelation));
+    }
+
+    @BeforeAll
+    static void visitorSetUp() {
+        visitor = new Visitor();
+        visitor.setId("d001a193-e232-4c1b-0086-1b86d3d6ae9e");
+        visitor.setName("Victor");
+        visitor.setSurname("Pilipenko");
+    }
+
+    @BeforeAll
+    static void visitorWithFriendSetUp() {
+        visitorWithFriend = new Visitor();
+        visitorWithFriend.setId("643be014-9f73-417a-91c7-34f0850cfc68");
+        visitorWithFriend.setName("polina");
+        visitorWithFriend.setSurname("lopenko");
+        visitorWithFriend.setFriends(List.of(visitor));
     }
 
 }
