@@ -1,4 +1,4 @@
-package integration;
+package integration.neo4j;
 
 import helper.Neo4jBaseIT;
 import java.time.LocalDate;

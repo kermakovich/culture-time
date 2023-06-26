@@ -1,7 +1,8 @@
 package service;
 
 import helper.BaseTest;
-import org.junit.jupiter.api.Assertions;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,14 +31,16 @@ final class VisitorServiceImplTest extends BaseTest {
                 .when(visitorRepository)
                 .save(Mockito.any(Visitor.class));
         Visitor actualVisitor = visitorService.create(visitor);
-        Assertions.assertEquals(
-                visitor.getName(),
+        MatcherAssert.assertThat(
+                "names",
                 actualVisitor.getName(),
-                "names are not equal");
-        Assertions.assertEquals(
-                visitor.getSurname(),
+                Matchers.equalTo("Victor")
+        );
+        MatcherAssert.assertThat(
+                "surnames",
                 actualVisitor.getSurname(),
-                "surnames are not equal");
+                Matchers.equalTo("Pilipenko")
+        );
         Mockito.verify(visitorRepository, Mockito.times(1))
                 .save(Mockito.any(Visitor.class));
     }
@@ -54,9 +57,11 @@ final class VisitorServiceImplTest extends BaseTest {
                 visitor.getId(),
                 visitorWithFriend.getId()
         );
-        Assertions.assertFalse(
-                actualVisitor.getFriends().isEmpty(),
-                "friends list is empty");
+        MatcherAssert.assertThat(
+                "empty friends list",
+                actualVisitor.getFriends(),
+                Matchers.not(Matchers.empty())
+        );
         Mockito.verify(visitorRepository, Mockito.times(1))
                 .makeFriend(
                         Mockito.any(String.class),

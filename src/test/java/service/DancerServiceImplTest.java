@@ -2,7 +2,9 @@ package service;
 
 import helper.BaseTest;
 import java.util.Optional;
-import org.junit.jupiter.api.Assertions;
+import org.assertj.core.api.Assertions;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,6 +15,8 @@ import solvd.ermakovich.ct.domain.exception.EntityDoesNotExistException;
 import solvd.ermakovich.ct.domain.node.Dancer;
 import solvd.ermakovich.ct.repository.DancerRepository;
 import solvd.ermakovich.ct.service.impl.DancerServiceImpl;
+
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * @author Ermakovich Kseniya
@@ -28,19 +32,20 @@ final class DancerServiceImplTest extends BaseTest {
 
     @Test
     void createsDancer() {
-        final Dancer dancer = BaseTest.dancer;
-        Mockito.doReturn(dancer)
+        Mockito.doReturn(BaseTest.dancer)
                 .when(dancerRepository)
                 .save(Mockito.any(Dancer.class));
-        Dancer actualDancer = dancerService.create(dancer);
-        Assertions.assertEquals(
-                dancer.getSurname(),
+        Dancer actualDancer = dancerService.create(BaseTest.dancer);
+        MatcherAssert.assertThat(
+                "surnames",
                 actualDancer.getSurname(),
-                "surnames are not equal");
-        Assertions.assertEquals(
-                dancer.getName(),
+                equalTo("polonov")
+        );
+        MatcherAssert.assertThat(
+                "names",
                 actualDancer.getName(),
-                "names are not equal");
+                Matchers.equalTo("alex")
+        );
         Mockito.verify(dancerRepository, Mockito.times(1))
                 .save(Mockito.any(Dancer.class));
     }
@@ -52,10 +57,16 @@ final class DancerServiceImplTest extends BaseTest {
                 .when(dancerRepository)
                 .findById(Mockito.any(String.class));
         Dancer actualDancer = dancerService.findById(dancerId);
-        Assertions.assertEquals(
-                BaseTest.dancer,
-                actualDancer,
-                "dancers are not equal");
+        MatcherAssert.assertThat(
+                "names",
+                actualDancer.getName(),
+                Matchers.equalTo("alex")
+                );
+        MatcherAssert.assertThat(
+                "surnames",
+                actualDancer.getSurname(),
+                Matchers.equalTo("polonov")
+        );
         Mockito.verify(dancerRepository, Mockito.times(1))
                 .findById(Mockito.any(String.class));
     }
@@ -66,11 +77,10 @@ final class DancerServiceImplTest extends BaseTest {
         Mockito.doReturn(Optional.empty())
                 .when(dancerRepository)
                 .findById(Mockito.any(String.class));
-        Assertions.assertThrows(
-                EntityDoesNotExistException.class,
-                () -> dancerService.findById(dancerId),
-                "exceptions is not thrown"
-                );
+        Assertions.assertThatExceptionOfType(
+                EntityDoesNotExistException.class
+        )
+                .isThrownBy(() -> dancerService.findById(dancerId));
         Mockito.verify(dancerRepository, Mockito.times(1))
                 .findById(Mockito.any(String.class));
     }
@@ -83,10 +93,11 @@ final class DancerServiceImplTest extends BaseTest {
                 .when(dancerRepository)
                 .getPerformancesCount(Mockito.any(String.class));
         Long actualCount = dancerService.getPerformancesCount(dancerId);
-        Assertions.assertEquals(
-                performancesCount,
+        MatcherAssert.assertThat(
+                "performances count",
                 actualCount,
-                "values are not equal");
+                Matchers.equalTo(performancesCount)
+        );
         Mockito.verify(dancerRepository, Mockito.times(1))
                 .getPerformancesCount(Mockito.any(String.class));
     }

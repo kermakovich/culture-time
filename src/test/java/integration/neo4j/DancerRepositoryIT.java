@@ -1,4 +1,4 @@
-package integration;
+package integration.neo4j;
 
 import helper.Neo4jBaseIT;
 import org.junit.jupiter.api.Assertions;
@@ -8,8 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
-import solvd.ermakovich.ct.domain.node.Visitor;
-import solvd.ermakovich.ct.repository.VisitorRepository;
+import solvd.ermakovich.ct.repository.DancerRepository;
 
 /**
  * @author Ermakovich Kseniya
@@ -19,20 +18,17 @@ import solvd.ermakovich.ct.repository.VisitorRepository;
 @ContextConfiguration(classes = TestConfig.class)
 @ActiveProfiles("test")
 @DirtiesContext
-final class VisitorRepositoryIT extends Neo4jBaseIT {
+final class DancerRepositoryIT extends Neo4jBaseIT {
 
     @Autowired
-    VisitorRepository visitorRepository;
+    DancerRepository dancerRepository;
 
     @Test
-    void makesFriend() {
-        final String from = "b01dd126-3f76-8bdd-a00f-1b86d3d6ae9e";
-        final String to = "857d1c79-3f76-40d5-a00f-8c785595994b";
-        Visitor actualVisitor = visitorRepository.makeFriend(from, to);
-        Assertions.assertFalse(
-                actualVisitor.getFriends().isEmpty(),
-                "error during adding relation \"FRIEND\""
-        );
+    void verifiesRightPerformancesCount() {
+        final String dancerId = "b8bc995c-e232-4787-a0f5-1b86d3d6ae9e";
+        Long actualCount = dancerRepository
+                .getPerformancesCount(dancerId);
+        Assertions.assertEquals(2L, actualCount, "wrong count");
     }
 
 }

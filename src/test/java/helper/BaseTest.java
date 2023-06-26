@@ -29,7 +29,6 @@ public abstract class BaseTest {
     static void dancerSetUp() {
         dancer = new Dancer();
         dancer.setName("alex");
-        dancer.setId("74e5ed85-c727-4441-8862-166bb4d5f07e");
         dancer.setSurname("polonov");
         dancer.setDescription("His body seems to flow effortlessly from one pose to the next");
         dancer.setExperience(7.8F);
