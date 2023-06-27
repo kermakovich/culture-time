@@ -4,6 +4,10 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.neo4j.core.Neo4jClient;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.Neo4jContainer;
@@ -13,7 +17,12 @@ import org.testcontainers.utility.MountableFile;
  * @author Ermakovich Kseniya
  */
 @SuppressWarnings("JTCOP.RuleAllTestsHaveProductionClass")
+@SpringBootTest
+@DirtiesContext
 public class Neo4jBaseIT extends BaseTest {
+
+    @Autowired
+    private Neo4jClient neo4jClient;
 
     private final static Neo4jContainer neo4jContainer =
             (Neo4jContainer) new Neo4jContainer("neo4j:5.8.0")
@@ -53,6 +62,14 @@ public class Neo4jBaseIT extends BaseTest {
     @BeforeEach
     void isContainerRunning() {
         Assertions.assertTrue(neo4jContainer.isRunning());
+    }
+
+    @BeforeEach
+    void resetDatabase() {
+        neo4jClient.query("MATCH (n) DETACH DELETE n")
+                .run();
+        neo4jClient.query("CALL apoc.cypher.runFile(\"file:////var/lib/neo4j/db_init/neo4j-init.cypher\")")
+                .run();
     }
 
     @AfterAll
