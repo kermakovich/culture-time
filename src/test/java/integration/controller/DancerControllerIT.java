@@ -87,7 +87,9 @@ final class DancerControllerIT extends Neo4jBaseIT {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.content().string(expectedCount.toString()));
+                .andExpect(MockMvcResultMatchers.content()
+                        .string(expectedCount.toString())
+                );
         MatcherAssert.assertThat(
                 "performances count",
                 dancerRepository.getPerformancesCount(dancerId),

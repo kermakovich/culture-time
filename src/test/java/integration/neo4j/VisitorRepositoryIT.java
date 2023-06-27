@@ -18,7 +18,7 @@ import solvd.ermakovich.ct.repository.VisitorRepository;
 final class VisitorRepositoryIT extends Neo4jBaseIT {
 
     @Autowired
-    VisitorRepository visitorRepository;
+    private VisitorRepository visitorRepository;
 
     @Test
     void makesFriend() {
