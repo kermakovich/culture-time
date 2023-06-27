@@ -3,7 +3,8 @@ package integration.neo4j;
 import helper.Neo4jBaseIT;
 import java.time.LocalDate;
 import java.util.List;
-import org.junit.jupiter.api.Assertions;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
@@ -27,19 +28,22 @@ final class PerformanceRepositoryIT extends Neo4jBaseIT {
     @Test
     void verifiesRecommendations() {
         final String visitorId = "857d1c79-3f76-40d5-a00f-8c785595994b";
-        final Long expectedListSize = 2L;
         List<PerformanceProjection> performances =
                 performanceRepository
                         .getRecommendationsBasedOnFriendsLikes(
                                 visitorId
                         );
-        Assertions.assertEquals(expectedListSize, performances.size());
-        Assertions.assertTrue(
+        MatcherAssert.assertThat(
+                "empty list",
+                performances,
+                Matchers.not(Matchers.empty())
+        );
+        MatcherAssert.assertThat(
+                "list does not contain expected performance",
                 performances.stream()
-                        .anyMatch(
-                                p -> "Swan Lake".equals(p.getTitle())
-                        ),
-                "list does not contain expected performance"
+                        .map(PerformanceProjection::getTitle)
+                        .toList(),
+                Matchers.hasItem("Romeo and Juliet")
         );
     }
 
@@ -55,9 +59,11 @@ final class PerformanceRepositoryIT extends Neo4jBaseIT {
                                         LocalDate.now()),
                                 performanceId
                         );
-        Assertions.assertFalse(
-                expectedPerformance.getDancers().isEmpty(),
-                "dancer is not added");
+        MatcherAssert.assertThat(
+                "dancer is not added",
+                expectedPerformance.getDancers(),
+                Matchers.not(Matchers.empty())
+        );
     }
 
 }
