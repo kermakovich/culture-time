@@ -10,6 +10,7 @@ import solvd.ermakovich.ct.domain.node.Performance;
 import solvd.ermakovich.ct.domain.node.Visitor;
 import solvd.ermakovich.ct.domain.relation.ActsIn;
 import solvd.ermakovich.ct.repository.projection.PerformanceProjection;
+import solvd.ermakovich.ct.web.dto.DancerInPerformance;
 
 /**
  * @author Ermakovich Kseniya
@@ -24,6 +25,7 @@ public abstract class BaseTest {
     protected static ActsIn actsInRelation;
     protected static Visitor visitor;
     protected static Visitor visitorWithFriend;
+    protected static DancerInPerformance dancerInPerformance;
 
     @BeforeAll
     static void dancerSetUp() {
@@ -100,6 +102,13 @@ public abstract class BaseTest {
         visitorWithFriend.setName("polina");
         visitorWithFriend.setSurname("lopenko");
         visitorWithFriend.setFriends(List.of(visitor));
+    }
+
+    @BeforeAll
+    static void dancerInPerformanceSetUp() {
+        dancerInPerformance = new DancerInPerformance();
+        dancerInPerformance.setDancerId("2a404590-f9e7-463e-a11a-1fdac3a1d1c4");
+        dancerInPerformance.setFirstPerformanceDate(LocalDate.of(2022, 1, 1));
     }
 
 }
