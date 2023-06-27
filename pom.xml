@@ -23,6 +23,7 @@
 		<testcontainers.neo4j.version>1.18.3</testcontainers.neo4j.version>
 		<jtcop.version>0.1.13</jtcop.version>
 		<failsafe.version>3.1.0</failsafe.version>
+		<jacoco.version>0.8.10</jacoco.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -84,6 +85,12 @@
 			<version>${testcontainers.neo4j.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${assertj.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -142,6 +149,49 @@
 						<phase>test</phase>
 						<goals>
 							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>check</id>
+						<goals>
+							<goal>check</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<rule>
+									<element>BUNDLE</element>
+									<limits>
+										<limit>
+											<counter>COMPLEXITY</counter>
+											<value>COVEREDRATIO</value>
+											<minimum>0.85</minimum>
+										</limit>
+									</limits>
+									<includes>
+										<include>solvd.ermakovich.ct.service.**</include>
+										<include>solvd.ermakovich.ct.repository.**</include>
+									</includes>
+								</rule>
+							</rules>
+						</configuration>
+					</execution>
+					<execution>
+						<id>default-report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
 						</goals>
 					</execution>
 				</executions>

@@ -13,7 +13,7 @@ import org.testcontainers.utility.MountableFile;
  * @author Ermakovich Kseniya
  */
 @SuppressWarnings("JTCOP.RuleAllTestsHaveProductionClass")
-public class Neo4jBaseIT {
+public class Neo4jBaseIT extends BaseTest {
 
     private final static Neo4jContainer neo4jContainer =
             (Neo4jContainer) new Neo4jContainer("neo4j:5.8.0")
