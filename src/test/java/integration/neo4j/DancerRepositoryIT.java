@@ -17,7 +17,7 @@ import solvd.ermakovich.ct.repository.DancerRepository;
 final class DancerRepositoryIT extends Neo4jBaseIT {
 
     @Autowired
-    DancerRepository dancerRepository;
+    private DancerRepository dancerRepository;
 
     @Test
     void verifiesRightPerformancesCount() {

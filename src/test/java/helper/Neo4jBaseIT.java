@@ -24,7 +24,7 @@ public class Neo4jBaseIT extends BaseTest {
     @Autowired
     private Neo4jClient neo4jClient;
 
-    private final static Neo4jContainer neo4jContainer =
+    private static final Neo4jContainer CONTAINER =
             (Neo4jContainer) new Neo4jContainer("neo4j:5.8.0")
                     .withCopyFileToContainer(
                             MountableFile.forClasspathResource(
@@ -49,32 +49,33 @@ public class Neo4jBaseIT extends BaseTest {
 
     @BeforeAll
     static void setUp() {
-        neo4jContainer.start();
+        CONTAINER.start();
     }
 
     @DynamicPropertySource
-    static void neo4jProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.neo4j.uri", neo4jContainer::getBoltUrl);
+    static void neo4jProperties(final DynamicPropertyRegistry registry) {
+        registry.add("spring.neo4j.uri", CONTAINER::getBoltUrl);
         registry.add("spring.neo4j.authentication.username", () -> "neo4j");
         registry.add("spring.neo4j.authentication.password", () -> "password");
     }
 
     @BeforeEach
     void isContainerRunning() {
-        Assertions.assertTrue(neo4jContainer.isRunning());
+        Assertions.assertTrue(CONTAINER.isRunning());
     }
 
     @BeforeEach
     void resetDatabase() {
         neo4jClient.query("MATCH (n) DETACH DELETE n")
                 .run();
-        neo4jClient.query("CALL apoc.cypher.runFile(\"file:////var/lib/neo4j/db_init/neo4j-init.cypher\")")
+        neo4jClient.query("CALL apoc.cypher.runFile(\"file:///"
+                        + "/var/lib/neo4j/db_init/neo4j-init.cypher\")")
                 .run();
     }
 
     @AfterAll
     static void destroy() {
-        neo4jContainer.stop();
+        CONTAINER.stop();
     }
 
 }

@@ -58,7 +58,8 @@ final class PerformanceServiceImplTest extends BaseTest {
         Mockito.doReturn(Optional.of(BaseTest.performance))
                 .when(performanceRepository)
                 .findById(Mockito.any(String.class));
-        Performance actualPerformance = performanceService.findById(performanceId);
+        Performance actualPerformance = performanceService
+                .findById(performanceId);
         MatcherAssert.assertThat(
                 "titles",
                 actualPerformance.getTitle(),
@@ -116,7 +117,9 @@ final class PerformanceServiceImplTest extends BaseTest {
                 Matchers.contains("Cinderella")
         );
         Mockito.verify(performanceRepository, Mockito.times(1))
-                .getRecommendationsBasedOnFriendsLikes(Mockito.any(String.class));
+                .getRecommendationsBasedOnFriendsLikes(
+                        Mockito.any(String.class)
+                );
     }
 
     @Test

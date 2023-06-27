@@ -40,7 +40,9 @@ final class PerformanceControllerIT extends Neo4jBaseIT {
         mvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(
-                                new ObjectMapper().writeValueAsString(BaseTest.performance)
+                                new ObjectMapper().writeValueAsString(
+                                        BaseTest.performance
+                                )
                         ))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content()

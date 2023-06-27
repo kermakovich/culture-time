@@ -22,7 +22,7 @@ import solvd.ermakovich.ct.web.dto.DancerInPerformance;
 final class PerformanceRepositoryIT extends Neo4jBaseIT {
 
     @Autowired
-    PerformanceRepository performanceRepository;
+    private PerformanceRepository performanceRepository;
 
     @Test
     void verifiesRecommendations() {

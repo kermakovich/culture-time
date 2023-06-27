@@ -115,6 +115,7 @@
 						<sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
 					</sourceDirectories>
 					<configLocation>checkstyle.xml</configLocation>
+					<includeTestSourceDirectory>true</includeTestSourceDirectory>
 				</configuration>
 				<executions>
 					<execution>
@@ -164,6 +165,13 @@
 						</goals>
 					</execution>
 					<execution>
+						<id>jacoco-site</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+					<execution>
 						<id>check</id>
 						<goals>
 							<goal>check</goal>
@@ -182,17 +190,11 @@
 									<includes>
 										<include>solvd.ermakovich.ct.service.**</include>
 										<include>solvd.ermakovich.ct.repository.**</include>
+										<include>solvd.ermakovich.ct.web.controller.**</include>
 									</includes>
 								</rule>
 							</rules>
 						</configuration>
-					</execution>
-					<execution>
-						<id>default-report</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
 					</execution>
 				</executions>
 			</plugin>

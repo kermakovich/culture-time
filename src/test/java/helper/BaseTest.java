@@ -32,7 +32,8 @@ public abstract class BaseTest {
         dancer = new Dancer();
         dancer.setName("alex");
         dancer.setSurname("polonov");
-        dancer.setDescription("His body seems to flow effortlessly from one pose to the next");
+        dancer.setDescription("His body seems to flow "
+                + "effortlessly from one pose to the next");
         dancer.setExperience(7.8F);
     }
 
@@ -41,9 +42,9 @@ public abstract class BaseTest {
         performance = new Performance();
         performance.setTitle("Cinderella");
         performance.setId("d001a193-e232-4c1b-0086-1b86d3d6ae9e");
-        performance.setDescription("Cinderella is a 1960 Soviet" +
-                " musical film directed by Rostislav Zakharov and " +
-                "Aleksandr Rou.");
+        performance.setDescription("Cinderella is a 1960 Soviet"
+                + " musical film directed by Rostislav Zakharov and "
+                + "Aleksandr Rou.");
     }
 
     @BeforeAll
@@ -62,8 +63,8 @@ public abstract class BaseTest {
 
             @Override
             public String getDescription() {
-                return "Cinderella is a 1960 Soviet musical film directed" +
-                "by Rostislav Zakharov and Aleksandr Rou.";
+                return "Cinderella is a 1960 Soviet musical film directed"
+                        + "by Rostislav Zakharov and Aleksandr Rou.";
             }
         });
     }
@@ -81,9 +82,9 @@ public abstract class BaseTest {
         performanceWithDancer = new Performance();
         performanceWithDancer.setTitle("Cinderella");
         performanceWithDancer.setId("d001a193-e232-4c1b-0086-1b86d3d6ae9e");
-        performanceWithDancer.setDescription("Cinderella is a 1960 Soviet " +
-                "musical film directed by Rostislav Zakharov " +
-                "and Aleksandr Rou.");
+        performanceWithDancer.setDescription("Cinderella is a 1960 Soviet "
+                + "musical film directed by Rostislav Zakharov "
+                + "and Aleksandr Rou.");
         performanceWithDancer.setDancers(List.of(actsInRelation));
     }
 
