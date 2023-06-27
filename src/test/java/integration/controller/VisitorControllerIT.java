@@ -31,24 +31,20 @@ final class VisitorControllerIT extends Neo4jBaseIT {
 
     @Test
     void createsVisitor() throws Exception {
-        mvc.perform(
-                MockMvcRequestBuilders.post(BASE_URL)
+        mvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(new ObjectMapper()
-                                        .writeValueAsString(BaseTest.visitor)
-                        )
-                )
+                                .writeValueAsString(BaseTest.visitor)
+                        ))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath(
+                .andExpect(MockMvcResultMatchers.jsonPath(
                                 "$['name']",
                                 Is.is("Victor")
                         )
                 )
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath(
+                .andExpect(MockMvcResultMatchers.jsonPath(
                                 "$['surname']",
                                 Is.is("Pilipenko")
                         )
@@ -57,23 +53,19 @@ final class VisitorControllerIT extends Neo4jBaseIT {
 
     @Test
     void makesFriend() throws Exception {
-        mvc.perform(
-                MockMvcRequestBuilders.put(BASE_URL + "/{from}",
+        mvc.perform(MockMvcRequestBuilders.put(BASE_URL + "/{from}",
                                 "b01dd126-3f76-8bdd-a00f-1b86d3d6ae9e")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("857d1c79-3f76-40d5-a00f-8c785595994b")
-                )
+                        .content("857d1c79-3f76-40d5-a00f-8c785595994b"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath(
+                .andExpect(MockMvcResultMatchers.jsonPath(
                                 "$['name']",
                                 Is.is("sergey")
                         )
                 )
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath(
+                .andExpect(MockMvcResultMatchers.jsonPath(
                                 "$['surname']",
                                 Is.is("lopeko")
                         )
@@ -83,13 +75,11 @@ final class VisitorControllerIT extends Neo4jBaseIT {
     @Test
     void getsRecommendations() throws Exception {
         final String visitorId = "857d1c79-3f76-40d5-a00f-8c785595994b";
-        mvc.perform(
-                MockMvcRequestBuilders.get(
-                                        BASE_URL + "/{visitorId}/recommendations",
-                                        visitorId
-                                )
-                                .contentType(MediaType.APPLICATION_JSON)
-                )
+        mvc.perform(MockMvcRequestBuilders.get(
+                                BASE_URL + "/{visitorId}/recommendations",
+                                visitorId
+                        )
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

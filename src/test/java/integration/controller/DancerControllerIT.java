@@ -46,10 +46,10 @@ final class DancerControllerIT extends Neo4jBaseIT {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath(
+                .andExpect(MockMvcResultMatchers.jsonPath(
                                 "$['name']",
-                                Is.is("vasiliy"))
+                                Is.is("vasiliy")
+                        )
                 );
     }
 
@@ -63,14 +63,12 @@ final class DancerControllerIT extends Neo4jBaseIT {
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath(
+                .andExpect(MockMvcResultMatchers.jsonPath(
                                 "$['name']",
                                 Is.is("alex")
                         )
                 )
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath(
+                .andExpect(MockMvcResultMatchers.jsonPath(
                                 "$['surname']",
                                 Is.is("polonov")
                         )
@@ -82,7 +80,7 @@ final class DancerControllerIT extends Neo4jBaseIT {
         final Long expectedCount = 2L;
         final String dancerId = "b8bc995c-e232-4787-a0f5-1b86d3d6ae9e";
         mvc.perform(MockMvcRequestBuilders.get(
-                BASE_URL + "/{dancerId}/performances/count",
+                                BASE_URL + "/{dancerId}/performances/count",
                                 dancerId
                         )
                         .contentType(MediaType.APPLICATION_JSON))
@@ -101,7 +99,7 @@ final class DancerControllerIT extends Neo4jBaseIT {
     void deletesById() throws Exception {
         final String dancerId = "2a404590-f9e7-463e-a11a-1fdac3a1d1c4";
         mvc.perform(MockMvcRequestBuilders.delete(
-                BASE_URL + "/{dancerId}",
+                                BASE_URL + "/{dancerId}",
                                 dancerId
                         )
                         .contentType(MediaType.APPLICATION_JSON))

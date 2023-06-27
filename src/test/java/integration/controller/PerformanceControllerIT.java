@@ -37,18 +37,15 @@ final class PerformanceControllerIT extends Neo4jBaseIT {
 
     @Test
     void createsPerformance() throws Exception {
-        mvc.perform(
-                MockMvcRequestBuilders.post(BASE_URL)
+        mvc.perform(MockMvcRequestBuilders.post(BASE_URL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(
                                 new ObjectMapper().writeValueAsString(BaseTest.performance)
-                        )
-                )
+                        ))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath(
+                .andExpect(MockMvcResultMatchers.jsonPath(
                                 "$['title']",
                                 Is.is("Cinderella")
                         )
@@ -58,20 +55,17 @@ final class PerformanceControllerIT extends Neo4jBaseIT {
     @Test
     void findsById() throws Exception {
         final String performanceId = "d001a193-e232-4c1b-0086-1b86d3d6ae9e";
-        mvc.perform(
-                        MockMvcRequestBuilders.get(
-                                        BASE_URL + "/{performanceId}",
-                                        performanceId
-                                )
-                                .contentType(MediaType.APPLICATION_JSON)
-                )
+        mvc.perform(MockMvcRequestBuilders.get(
+                                BASE_URL + "/{performanceId}",
+                                performanceId
+                        )
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath(
-                                "$['title']",
-                                Is.is("Cinderella"))
+                .andExpect(MockMvcResultMatchers.jsonPath(
+                        "$['title']",
+                        Is.is("Cinderella"))
                 );
     }
 
@@ -80,16 +74,15 @@ final class PerformanceControllerIT extends Neo4jBaseIT {
         final String performanceId = "d001a193-e232-4c1b-0086-1b86d3d6ae9e";
         var mapper = new ObjectMapper();
         mapper.findAndRegisterModules();
-        mvc.perform(
-                MockMvcRequestBuilders.post(
-                        BASE_URL + "/{performanceId}/dancers",
+        mvc.perform(MockMvcRequestBuilders.post(
+                                BASE_URL + "/{performanceId}/dancers",
                                 performanceId
                         )
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(
-                                BaseTest.dancerInPerformance
+                                        BaseTest.dancerInPerformance
+                                )
                         ))
-                )
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content()
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON)
@@ -106,21 +99,17 @@ final class PerformanceControllerIT extends Neo4jBaseIT {
     @Test
     void deletesById() throws Exception {
         final String performanceId = "d001a193-e232-4c1b-0086-1b86d3d6ae9e";
-        mvc.perform(
-                MockMvcRequestBuilders.delete(
-                        BASE_URL + "/{performanceId}",
+        mvc.perform(MockMvcRequestBuilders.delete(
+                                BASE_URL + "/{performanceId}",
                                 performanceId
                         )
-                        .contentType(MediaType.APPLICATION_JSON)
-                )
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
         MatcherAssert.assertThat(
                 "deletion failed",
                 performanceRepository.existsById(performanceId),
                 Matchers.is(false)
-                );
+        );
     }
-
-
 
 }
