@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.neo4j.core.Neo4jClient;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.Neo4jContainer;
@@ -17,6 +18,7 @@ import org.testcontainers.utility.MountableFile;
  */
 @SuppressWarnings("JTCOP.RuleAllTestsHaveProductionClass")
 @SpringBootTest
+@DirtiesContext
 public class Neo4jBaseIT extends BaseTest {
 
     @Autowired
