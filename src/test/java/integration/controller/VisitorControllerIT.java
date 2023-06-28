@@ -3,6 +3,7 @@ package integration.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import helper.BaseTest;
 import helper.Neo4jBaseIT;
+import org.hamcrest.Matchers;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,12 +86,10 @@ final class VisitorControllerIT extends Neo4jBaseIT {
                         .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(
                         MockMvcResultMatchers.jsonPath(
-                                "$[0]['title']",
-                                Is.is("Romeo and Juliet")))
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath(
-                                "$[1]['title']",
-                                Is.is("Swan Lake"))
+                                "$[*]['title']",
+                                Matchers.hasItems(
+                                        "Romeo and Juliet", "Swan Lake")
+                        )
                 );
     }
 

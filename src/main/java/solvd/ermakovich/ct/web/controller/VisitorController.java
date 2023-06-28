@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import solvd.ermakovich.ct.domain.node.Visitor;
@@ -53,6 +54,16 @@ public class VisitorController {
     ) {
         return performanceService
                 .getRecommendationsBasedOnFriendsLikes(id);
+    }
+
+    @GetMapping("/{visitorFrom}/network")
+    public List<VisitorDto> getFriendsChain(
+            @PathVariable final String visitorFrom,
+            @RequestParam final String visitorTo
+    ) {
+        List<Visitor> friendsChain =
+                visitorService.getWayToConnect(visitorFrom, visitorTo);
+        return mapper.toDto(friendsChain);
     }
 
 }

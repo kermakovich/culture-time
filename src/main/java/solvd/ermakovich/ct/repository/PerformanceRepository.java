@@ -24,7 +24,7 @@ public interface PerformanceRepository
     );
 
     @Query("MATCH (visitor:Visitor) where visitor.id= :#{#id} "
-            + "match (visitor) -[rel:FRIEND] ->(friends:Visitor) "
+            + "match (visitor) -[rel:FRIEND] - (friends:Visitor) "
             + "- [re:LIKED] -> (perf:Performance) return perf")
     List<PerformanceProjection>
         getRecommendationsBasedOnFriendsLikes(String id);
