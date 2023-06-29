@@ -24,6 +24,7 @@ id: "d001a193-e232-4c1b-0086-1b86d3d6ae9e", title: "Cinderella"})
 CREATE (v1:Visitor { surname: "lopenko", name: "polina", id: "643be014-9f73-417a-91c7-34f0850cfc68"})
 CREATE (v2:Visitor { surname: "pilemko", name: "lera", id: "857d1c79-3f76-40d5-a00f-8c785595994b"})
 CREATE (v3:Visitor { surname: "lopeko", name: "sergey", id: "b01dd126-3f76-8bdd-a00f-1b86d3d6ae9e"})
+CREATE (v4:Visitor { surname: "popov", name: "valeriy", id: "7725dfb1-1ad8-4d2d-a271-bbcb8d99ac7d"})
 
 //Relations
 CREATE (d1) - [:ACTS_IN {firstPerformanceDate: "2023-09-09"}] -> (p1),
@@ -33,4 +34,7 @@ CREATE (v1) - [:LIKED] -> (p1),
        (v1) - [:LIKED] -> (p2)
 
 CREATE (v1) - [:FRIEND] -> (v2),
-       (v2) - [:FRIEND] -> (v1);
+       (v2) - [:FRIEND] -> (v1),
+       (v2) - [:FRIEND] -> (v3),
+       (v3) - [:FRIEND] -> (v4),
+       (v2) - [:FRIEND] -> (v4);

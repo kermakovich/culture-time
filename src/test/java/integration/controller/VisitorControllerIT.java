@@ -93,4 +93,31 @@ final class VisitorControllerIT extends Neo4jBaseIT {
                 );
     }
 
+    @Test
+    void getsFriendsChain() throws Exception {
+        final String visitorFrom = "643be014-9f73-417a-91c7-34f0850cfc68";
+        final String visitorTo = "7725dfb1-1ad8-4d2d-a271-bbcb8d99ac7d";
+        mvc.perform(MockMvcRequestBuilders.get(
+                                BASE_URL + "/{visitorFrom}/network",
+                                visitorFrom
+                        )
+                        .param("visitorTo", visitorTo)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content()
+                        .contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(
+                        MockMvcResultMatchers.jsonPath(
+                                "$[1]['name']",
+                                Matchers.equalTo("lera")
+                        )
+                )
+                .andExpect(
+                        MockMvcResultMatchers.jsonPath(
+                                "$[1]['surname']",
+                                Matchers.equalTo("pilemko")
+                        )
+                );
+    }
+
 }
