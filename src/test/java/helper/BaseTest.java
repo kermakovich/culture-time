@@ -26,6 +26,7 @@ public abstract class BaseTest {
     protected static Visitor visitor;
     protected static Visitor visitorWithFriend;
     protected static DancerInPerformance dancerInPerformance;
+    protected static List<Visitor> visitorList;
 
     @BeforeAll
     static void dancerSetUp() {
@@ -110,6 +111,21 @@ public abstract class BaseTest {
         dancerInPerformance = new DancerInPerformance();
         dancerInPerformance.setDancerId("2a404590-f9e7-463e-a11a-1fdac3a1d1c4");
         dancerInPerformance.setFirstPerformanceDate(LocalDate.of(2022, 1, 1));
+    }
+
+    @BeforeAll
+    static void visitorListSetUp() {
+        visitorList = new ArrayList<>();
+        var firstVisitor = new Visitor();
+        firstVisitor.setId("643be014-9f73-417a-91c7-34f0850cfc68");
+        firstVisitor.setName("Victor");
+        firstVisitor.setSurname("Pilipenko");
+        var secondVisitor = new Visitor();
+        secondVisitor.setId("7725dfb1-1ad8-4d2d-a271-bbcb8d99ac7d");
+        secondVisitor.setName("Petr");
+        secondVisitor.setSurname("Popov");
+        visitorList.add(firstVisitor);
+        visitorList.add(secondVisitor);
     }
 
 }

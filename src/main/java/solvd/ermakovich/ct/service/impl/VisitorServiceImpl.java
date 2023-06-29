@@ -1,5 +1,6 @@
 package solvd.ermakovich.ct.service.impl;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,14 @@ public class VisitorServiceImpl implements VisitorService {
     @Transactional
     public Visitor makeFriend(final String from, final String to) {
         return visitorRepository.makeFriend(from, to);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Visitor> getWayToConnect(final String visitorFrom,
+                                         final String visitorTo) {
+        return visitorRepository
+                .getFriendsShortestPath(visitorFrom, visitorTo);
     }
 
 }
